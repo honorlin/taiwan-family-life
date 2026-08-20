@@ -1,0 +1,13 @@
+version: 1
+auto_publish:
+  allowed_risk_levels: [green, blue]
+  minimum_sources: 2
+  maximum_posts_per_day: 1
+blocked_phrases: [保證有效, 立即見效, 一定落後, 不買會後悔, 取代醫師, 自行停藥]
+required_sections: [30秒看懂, 今天可以怎麼做, 哪些情況要先詢問專業人員, 參考資料]
+editorial:
+  audience: 台灣 0 至 6 歲幼兒家庭
+  principles: [台灣情境, 不比較孩子, 不責備照顧者, 標示來源, 清楚求助界線]
+commercial_policy:
+  automatic_product_recommendations: false
+  disclosure_required: true
