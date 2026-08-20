@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://honorlin.github.io/taiwan-family-life/sitemap.xml
