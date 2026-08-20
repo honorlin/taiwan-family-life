@@ -1,0 +1,21 @@
+brand:
+  name: 台灣親子好生活
+  english_name: Taiwan Family Life
+  tagline: 陪你把育兒日常，過得更安心、更從容
+  promise: 不製造焦慮，把可信資料整理成台灣家庭今天就能使用的方法。
+audience:
+  primary: 台灣 0 至 6 歲幼兒家庭
+tone: [溫暖, 清楚, 不比較, 不責備, 不誇大, 台灣用語]
+categories:
+  - {key: feeding, name: 吃｜幼兒飲食, description: 副食品、挑食、共餐與外食準備}
+  - {key: sleep, name: 睡｜作息睡眠, description: 睡前流程、午睡與家庭作息}
+  - {key: development, name: 長｜成長發展, description: 發展里程、觀察方式與就醫提醒}
+  - {key: health, name: 護｜健康照顧, description: 日常照護、常見不適與正確求助}
+  - {key: safety, name: 安｜居家安全, description: 防跌、防燙、乘車與玩具安全}
+  - {key: play, name: 玩｜遊戲探索, description: 親子遊戲、感官探索與放電點子}
+  - {key: reading, name: 讀｜親子共讀, description: 選書、共讀習慣與語言互動}
+  - {key: emotion, name: 心｜情緒陪伴, description: 哭鬧、挫折、界線與親子溝通}
+  - {key: childcare, name: 托｜托育入園, description: 托嬰、幼兒園與適應準備}
+  - {key: outings, name: 行｜親子出遊, description: 台灣景點、交通、住宿與行李清單}
+  - {key: family, name: 家｜家庭生活, description: 伴侶分工、祖孫互動與照顧者喘息}
+  - {key: shopping, name: 選｜用品挑選, description: 尺寸、安全標章與理性選購}
