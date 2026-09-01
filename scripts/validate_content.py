@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import re
 from pathlib import Path
 from urllib.parse import urlparse
 import yaml
@@ -40,10 +41,41 @@ def validate(path):
         with Image.open(image) as im:
             if im.size != (1200, 630): errors.append(f"cover must be 1200x630, got {im.size}")
     credits = meta.get("photo_credits") or []
-    if len(credits) != 1: errors.append("exactly one cover photo credit required")
+    modern_photo_standard = meta.get("editorial_standard") == "real_photo_v2"
+    if modern_photo_standard:
+        if len(re.sub(r"\s", "", body)) < 1200:
+            errors.append("body must contain at least 1200 non-whitespace characters")
+        if len(credits) < 3:
+            errors.append("at least three photo credits required")
+
+        displayed = {str(meta.get("image", ""))}
+        displayed.update(re.findall(r'<img[^>]+src="\{\{\s*[\'\"]([^\'\"]+)[\'\"]\s*\|\s*relative_url\s*\}\}"', body))
+        if len(displayed) < 3:
+            errors.append("at least three local images must be displayed")
+
+        credited_files = {str(x.get("file", "")) for x in credits}
+        for shown in displayed:
+            if shown not in credited_files:
+                errors.append(f"displayed image lacks photo credit: {shown}")
+
+        for credit in credits:
+            for key in ("file", "creator", "source", "license", "license_url", "modifications", "alt", "caption"):
+                if not credit.get(key): errors.append(f"incomplete photo credit: {key}")
+            credit_file = ROOT / str(credit.get("file", "")).lstrip("/")
+            if not credit_file.exists():
+                errors.append(f"credited image missing: {credit.get('file', '')}")
+                continue
+            with Image.open(credit_file) as im:
+                expected = (1200, 630) if str(credit.get("file")) == str(meta.get("image")) else ((1200, 800), (1200, 630))
+                if isinstance(expected[0], tuple):
+                    if im.size not in expected: errors.append(f"inline image has invalid size: {credit.get('file')}")
+                elif im.size != expected:
+                    errors.append(f"cover must be 1200x630, got {im.size}")
     else:
-        for key in ("file", "creator", "source", "license", "license_url", "modifications"):
-            if not credits[0].get(key): errors.append(f"incomplete photo credit: {key}")
+        if len(credits) != 1: errors.append("exactly one cover photo credit required")
+        else:
+            for key in ("file", "creator", "source", "license", "license_url", "modifications"):
+                if not credits[0].get(key): errors.append(f"incomplete photo credit: {key}")
     return sorted(set(errors))
 
 targets = [Path(x) for x in sys.argv[1:]] or sorted((ROOT / "_posts").glob("*.md"))
