@@ -4,6 +4,7 @@ lang: zh-TW
 timezone: Asia/Taipei
 url: "https://honorlin.github.io"
 baseurl: "/taiwan-family-life"
+google_analytics: "G-D3FT4HYZDJ"
 permalink: /articles/:year/:month/:day/:title/
 markdown: kramdown
 future: false
